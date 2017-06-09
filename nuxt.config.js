@@ -27,7 +27,7 @@ module.exports = {
     },
     {
       src: '~plugins/vue-image-crop-upload',
-      ssr: true
+      ssr: false
     }
   ],
   loaders: [

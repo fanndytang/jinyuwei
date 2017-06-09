@@ -1,4 +1,6 @@
-import Vue from 'vue'
-if (process.BROWSER_BUILD) {
-  Vue.use(require('vue-image-crop-upload'))
+import VueImageCropUpload from 'vue-image-crop-upload'
+export default {
+  components: {
+    'vue-image-crop-upload': VueImageCropUpload
+  }
 }

@@ -20,13 +20,28 @@
   </el-menu>
 </template>
 <script>
+  import Service from '~plugins/axios'
   export default {
+    data () {
+      return {
+        list: []
+      }
+    },
+    mounted () {
+      this.getNav()
+    },
     methods: {
       handleOpen (key, keyPath) {
         console.log(key, keyPath)
       },
       handleClose (key, keyPath) {
         console.log(key, keyPath)
+      },
+      getNav () {
+        let self = this
+        Service.get('/api/nav/list?type="home"').then(data => {
+          self.list = JSON.parse(data.request.response).data
+        })
       }
     }
   }

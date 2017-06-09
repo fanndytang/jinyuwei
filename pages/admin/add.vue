@@ -1,20 +1,24 @@
 <template>
   <div>
     <el-form v-cloak :rules="rules" ref="form" :model="ruleForm" label-width="80px" style="width: 80%">
-      <el-form-item label="产品名称" prop="name">
-        <el-input v-model="ruleForm.name"></el-input>
+      <el-form-item label="产品名称" prop="title">
+        <el-input v-model="ruleForm.title"></el-input>
       </el-form-item>
       <el-form-item label="封面图" prop="cover">
-        <a class="btn" @click="toggleShow">设置头像</a>
-        <vue-image-crop-upload field="img"
-                   :width="300"
-                   :height="300"
-                   url="/upload"
-                   :params="params"
-                   :headers="headers"
-                   :value.sync="show"
-                   img-format="png"></vue-image-crop-upload>
-        <img :src="imgDataUrl">
+     <!--   <a class="btn" @click="toggleShow">设置头像</a>
+        <div id="app">
+          <a class="btn" @click="toggleShow">set avatar</a>
+          <vue-image-crop-upload field="img"
+                                 v-model="show"
+                                 :width="300"
+                                 :height="300"
+                                 url="/upload"
+                                 :params="params"
+                                 :headers="headers"
+                                 img-format="png"></vue-image-crop-upload>
+          <img :src="imgDataUrl">
+        </div>-->
+
         <el-input v-model="ruleForm.cover"></el-input>
       </el-form-item>
       <el-form-item label="详情图" prop="thumbs">
@@ -23,45 +27,38 @@
       <el-form-item label="产品描述" prop="content">
         <div class="quill-editor"
              :content="ruleForm.content"
+             v-model="ruleForm.content"
              v-quill:myQuillEditor="editorOption">
         </div>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">确定</el-button>
-        <el-button>取消</el-button>
+        <el-button type="primary" @click="onSubmit('form')">确定</el-button>
+        <el-button @click="resetForm('form')">重置</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+  import Service from '~plugins/axios'
   export default {
     data () {
       return {
-        show: true,
-        params: {
-          token: '123456798',
-          name: 'avatar'
-        },
-        headers: {
-          smail: '*_~'
-        },
-        imgDataUrl: '',
         ruleForm: {
-          name: '',
+          title: '',
           cover: '',
           thumbs: '',
           content: ''
         },
         rules: {
-          name: [
+          title: [
             { required: true, message: '请输入产品名称', trigger: 'blur' }
           ],
           cover: [
-            { required: true, message: '请上传封面图', trigger: 'blur' }
+            { required: false, message: '请上传封面图', trigger: 'blur' }
           ],
           thumbs: [
-            { required: true, message: '请上传详情图', trigger: 'blur' }
+            { required: false, message: '请上传详情图', trigger: 'blur' }
           ],
           content: [
             { required: true, message: '请输入产品描述', trigger: 'blur' }
@@ -72,13 +69,23 @@
     },
     layout: 'admin',
     methods: {
-      toggleShow () {
-        this.show = !this.show
+      onSubmit (formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            Service.post('/api/product/add', {title: this.ruleForm.title, content: this.ruleForm.content}).then(response => {
+              console.log(response)
+            })
+          } else {
+            console.log('error submit!!')
+            return false
+          }
+        })
       },
-      onSubmit () {
-        console.log('submit!')
+      resetForm (formName) {
+        this.$refs[formName].resetFields()
       }
-    }
+    },
+    mounted () {}
   }
 </script>
 

@@ -2,10 +2,11 @@
   <el-row :gutter="20">
     <el-col :span="6" v-for="(item, index) in list" :key="item">
       <el-card>
-        <img :src="item.img" class="image">
+        <img :src="item.src" class="image">
+        <h1>{{item.title}}</h1>
         <div class="detail">
           <div class="price">{{item.price}}</div>
-          <div class="content">{{item.describle}}</div>
+          <div class="content" v-html="item.content"></div>
         </div>
       </el-card>
     </el-col>
@@ -13,23 +14,22 @@
 </template>
 
 <script>
+  import Service from '~plugins/axios'
   export default {
     data () {
       return {
-        list: [
-          {
-            img: 'assets/images/hamburger.png',
-            router: '',
-            price: 30,
-            describle: 'ttest'
-          },
-          {
-            img: 'assets/images/hamburger.png',
-            router: '',
-            price: 30,
-            describle: 'ttest'
-          }
-        ]
+        list: []
+      }
+    },
+    mounted () {
+      this.getList()
+    },
+    methods: {
+      getList () {
+        let self = this
+        Service.get('/api/product/list').then(data => {
+          self.list = JSON.parse(data.request.response).data
+        })
       }
     }
   }
