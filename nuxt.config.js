@@ -24,10 +24,6 @@ module.exports = {
     {
       src: '~plugins/vue-quill-editor',
       ssr: true
-    },
-    {
-      src: '~plugins/vue-image-crop-upload',
-      ssr: false
     }
   ],
   loaders: [
@@ -67,8 +63,7 @@ module.exports = {
     vendor: [
       'axios',
       'element-ui',
-      'vue-quill-editor',
-      'vue-image-crop-upload'
+      'vue-quill-editor'
     ],
     /*
     ** Run ESLINT on save

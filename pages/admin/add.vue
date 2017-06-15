@@ -5,24 +5,30 @@
         <el-input v-model="ruleForm.title"></el-input>
       </el-form-item>
       <el-form-item label="封面图" prop="cover">
-     <!--   <a class="btn" @click="toggleShow">设置头像</a>
-        <div id="app">
-          <a class="btn" @click="toggleShow">set avatar</a>
-          <vue-image-crop-upload field="img"
-                                 v-model="show"
-                                 :width="300"
-                                 :height="300"
-                                 url="/upload"
-                                 :params="params"
-                                 :headers="headers"
-                                 img-format="png"></vue-image-crop-upload>
-          <img :src="imgDataUrl">
-        </div>-->
-
-        <el-input v-model="ruleForm.cover"></el-input>
+        <el-upload
+          class="avatar-uploader"
+          action="http://127.0.0.1:8360/api/upload/image"
+          :show-file-list="false"
+          :on-success="handleAvatarSuccess"
+          :before-upload="beforeAvatarUpload">
+          <img v-if="ruleForm.cover" :src="ruleForm.cover" class="avatar" />
+          <i class="el-icon-plus avatar-uploader-icon" v-else></i>
+        </el-upload>
+        <input type="hidden" v-model="ruleForm.coverid" />
       </el-form-item>
       <el-form-item label="详情图" prop="thumbs">
-        <el-input v-model="ruleForm.thumbs"></el-input>
+        <el-upload
+          class="upload-demo"
+          action="http://127.0.0.1:8360/api/upload/image"
+          :on-preview="handlePreview"
+          :on-success="handleSuccess"
+          :on-remove="handleRemove"
+          :file-list="ruleForm.thumbs"
+          list-type="picture">
+          <el-button size="small" type="primary">点击上传</el-button>
+          <div slot="tip" class="el-upload__tip">只能上传jpg/png/gif文件，且不超过500kb</div>
+        </el-upload>
+        <input type="hidden" v-model="ruleForm.thumbsid" />
       </el-form-item>
       <el-form-item label="产品描述" prop="content">
         <div class="quill-editor"
@@ -41,23 +47,26 @@
 
 <script>
   import Service from '~plugins/axios'
+
   export default {
     data () {
       return {
         ruleForm: {
           title: '',
           cover: '',
-          thumbs: '',
+          coverid: '',
+          thumbs: [],
+          thumbsid: [],
           content: ''
         },
         rules: {
           title: [
             { required: true, message: '请输入产品名称', trigger: 'blur' }
           ],
-          cover: [
+          coverid: [
             { required: false, message: '请上传封面图', trigger: 'blur' }
           ],
-          thumbs: [
+          thumbsid: [
             { required: false, message: '请上传详情图', trigger: 'blur' }
           ],
           content: [
@@ -72,7 +81,12 @@
       onSubmit (formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            Service.post('/api/product/add', {title: this.ruleForm.title, content: this.ruleForm.content}).then(response => {
+            Service.post('/api/product/add', {
+              title: this.ruleForm.title,
+              coverid: this.ruleForm.coverid,
+              thumbsid: this.ruleForm.thumbsid,
+              content: this.ruleForm.content
+            }).then(response => {
               console.log(response)
             })
           } else {
@@ -83,6 +97,40 @@
       },
       resetForm (formName) {
         this.$refs[formName].resetFields()
+      },
+      handleAvatarSuccess (res, file) {
+        this.ruleForm.cover = URL.createObjectURL(file.raw)
+        this.ruleForm.coverid = res.data.data.file._id
+      },
+      beforeAvatarUpload (file) {
+        const isJPG = file.type === 'image/jpeg'
+        const isPNG = file.type === 'image/png'
+        const isGif = file.type === 'image/gif'
+        const isLt2M = file.size / 1024 / 1024 < 2
+        if (!isJPG && !isPNG && !isGif) {
+          this.$message.error('上传图片格式只允许jpg, png, gif')
+        }
+        if (!isLt2M) {
+          this.$message.error('上传头像图片大小不能超过 2MB!')
+        }
+        return isJPG && isLt2M
+      },
+      handleRemove (file, fileList) {
+        for (let key in this.ruleForm.thumbsid) {
+          if (file.uid === this.ruleForm.thumbsid[key].uid) {
+            this.ruleForm.thumbsid.splice(key, 1)
+            break
+          }
+        }
+      },
+      handlePreview (file) {
+        console.log(file)
+      },
+      handleSuccess (res, file, filelist) {
+        this.ruleForm.thumbsid.push({
+          uid: file.uid,
+          id: res.data.data.file._id
+        })
       }
     },
     mounted () {}
@@ -96,5 +144,29 @@
   }
   .el-form-item__content .ql-toolbar {
     line-height: 24px;
+  }
+
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #20a0ff;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
   }
 </style>

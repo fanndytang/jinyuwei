@@ -31,7 +31,7 @@
       </el-table-column>
     </el-table>
 
-    <el-form v-cloak :rules="rules" ref="form" :model="ruleForm" label-width="80px" style="width: 80%">
+    <el-form v-cloak :rules="rules" ref="form" :model="ruleForm" label-width="120px" style="width: 80%">
       <el-form-item label="导航名称" prop="title">
         <el-input v-model="ruleForm.title"></el-input>
       </el-form-item>
@@ -121,7 +121,15 @@
           sort: self.ruleForm.sort,
           target: self.ruleForm.target,
           type: 'home'
-        }).then(data => {})
+        }).then(data => {
+          self.list.push({
+            _id: '',
+            title: self.ruleForm.title,
+            link: self.ruleForm.link,
+            sort: self.ruleForm.sort,
+            target: self.ruleForm.target
+          })
+        })
       }
     }
   }

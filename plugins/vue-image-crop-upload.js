@@ -1,6 +1,2 @@
-import VueImageCropUpload from 'vue-image-crop-upload'
-export default {
-  components: {
-    'vue-image-crop-upload': VueImageCropUpload
-  }
-}
+import Vue from 'vue'
+Vue.use(require('vue-image-crop-upload'))
