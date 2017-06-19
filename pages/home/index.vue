@@ -1,6 +1,6 @@
 <template>
  <div>
-   前台首页
+eryqeqyq4e
  </div>
 </template>
 

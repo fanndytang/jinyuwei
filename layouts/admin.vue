@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <el-row>
-      <el-col :span="4">
-        <JYWleft></JYWleft>
-      </el-col>
-      <el-col :span="20">
-        <JYWheader></JYWheader>
-        <nuxt/>
-      </el-col>
-    </el-row>
-  </div>
+  <el-row>
+    <el-col :span="24">
+      <JYWheader></JYWheader>
+    </el-col>
+    <el-col :span="4">
+      <JYWleft></JYWleft>
+    </el-col>
+    <el-col :span="20" style="padding: 0 30px;">
+      <nuxt/>
+    </el-col>
+  </el-row>
 </template>
 
 <script>
