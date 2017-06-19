@@ -24,6 +24,8 @@
 
 <script>
   import Service from '~plugins/axios'
+  import Main from '~plugins/main'
+
   export default {
     data () {
       return {
@@ -34,18 +36,11 @@
       this.getMainNav()
     },
     methods: {
-      compare (property) {
-        return function (a, b) {
-          let value1 = a[property]
-          let value2 = b[property]
-          return value1 - value2
-        }
-      },
       getMainNav () {
         let self = this
         Service.get('/api/nav/list?type=4').then(data => {
           let list = JSON.parse(data.request.response).data
-          list = list.sort(self.compare('sort'))
+          list = list.sort(Main.compare('sort'))
           self.list = list
         })
       },

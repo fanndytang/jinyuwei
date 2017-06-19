@@ -16,6 +16,12 @@
 <script>
   import Service from '~plugins/axios'
   export default {
+    props: {
+      filters: {
+        type: Object,
+        default: {}
+      }
+    },
     data () {
       return {
         list: []

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>产品管理</h1>
-    <el-button v-on:click="isAdd = true" v-if="!isAdd">添加</el-button>
+    <el-button v-on:click="isAdd = true" v-if="!isAdd" style="margin: 20px 0;">添加</el-button>
     <el-table
       v-if="!isAdd"
       :data="tableData3"
@@ -67,6 +67,9 @@
              v-quill:myQuillEditor="editorOption">
         </div>
       </el-form-item>
+      <el-form-item label="产品价格" prop="title">
+        <el-input v-model="ruleForm.price"></el-input>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit('form')">确定</el-button>
         <el-button @click="resetForm('form')">重置</el-button>
@@ -89,7 +92,9 @@
           coverid: '',
           thumbs: [],
           thumbsid: [],
-          content: ''
+          content: '',
+          price: '',
+          discount: 0  //  折扣比率
         },
         rules: {
           title: [
@@ -132,7 +137,9 @@
               title: this.ruleForm.title,
               coverid: this.ruleForm.coverid,
               thumbsid: this.ruleForm.thumbsid,
-              content: this.ruleForm.content
+              content: this.ruleForm.content,
+              price: this.ruleForm.price,
+              discount: this.ruleForm.discount
             }).then(response => {
               console.log(response)
             })
@@ -183,7 +190,7 @@
   }
 </script>
 
-<style rel="stylesheet/less" lang="less">
+<style rel="stylesheet/less" lang="less" scoped>
   .ql-container .ql-editor {
     min-height: 20em;
     max-height: 25em;

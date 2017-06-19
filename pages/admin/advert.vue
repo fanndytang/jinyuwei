@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>广告管理</h1>
-    <el-button v-on:click="isAdd = true" v-if="!isAdd">添加</el-button>
+    <el-button v-on:click="isAdd = true" v-if="!isAdd" style="margin: 20px 0;">添加</el-button>
     <el-table
       v-if="!isAdd"
       :data="list"
@@ -83,6 +83,8 @@
 
 <script>
   import Service from '~plugins/axios'
+  import Main from '~plugins/main'
+
   export default {
     data () {
       return {
@@ -121,17 +123,10 @@
       this.getAdvert()
     },
     methods: {
-      compare (property) {
-        return function (a, b) {
-          let value1 = a[property]
-          let value2 = b[property]
-          return value1 - value2
-        }
-      },
       getAdvert () {
         let self = this
         Service.get('/api/advert/list').then(data => {
-          self.list = JSON.parse(data.request.response).data.sort(self.compare('sort'))
+          self.list = JSON.parse(data.request.response).data.sort(Main.compare('sort'))
         })
       },
       deleteAdvert (id, index) {

@@ -53,6 +53,8 @@
 </template>
 <script>
   import Service from '~plugins/axios'
+  import Main from '~plugins/main'
+
   export default {
     props: {
       type: {
@@ -105,13 +107,6 @@
       this.getNav()
     },
     methods: {
-      compare (property) {
-        return function (a, b) {
-          let value1 = a[property]
-          let value2 = b[property]
-          return value1 - value2
-        }
-      },
       getOneNav (callback) { //  判断同类型的是否已存在相同序号的链接
         let self = this
         let flag = false
@@ -133,13 +128,12 @@
       },
       getNav () {
         let self = this
-        console.log(self.type)
         Service.get('/api/nav/list?type=' + self.type).then(data => {
           let list = JSON.parse(data.request.response).data
           for (let key in list) {
             list[key].target = parseInt(list[key].target) === 1 ? '是' : '否'
           }
-          self.list = list.sort(self.compare('sort'))
+          self.list = list.sort(Main.compare('sort'))
         })
       },
       deleteNav (id, index) {
@@ -217,14 +211,14 @@
 
           let list = self.list
           self.list = []
-          self.list = list.sort(self.compare('sort'))
+          self.list = list.sort(Main.compare('sort'))
           self.ruleForm.sort = max + 1
         })
       }
     }
   }
 </script>
-<style rel="stylesheet/less" lang="less">
+<style rel="stylesheet/less" lang="less" scoped>
   .el-table {
     tr {
       th, td {
