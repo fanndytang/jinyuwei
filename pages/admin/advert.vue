@@ -36,8 +36,8 @@
       <el-table-column
         label="操作">
         <template scope="scope">
-          <el-button @click="updateNav(tableData3[scope.$index]._id, scope.$index)" type="text" size="small">修改</el-button>
-          <el-button @click="deleteNav(tableData3[scope.$index]._id, scope.$index)" type="text" size="small">删除</el-button>
+          <el-button @click="updateAdvert(list[scope.$index]._id, scope.$index)" type="text" size="small">修改</el-button>
+          <el-button @click="deleteAdvert(list[scope.$index]._id, scope.$index)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -71,7 +71,7 @@
           <img v-if="ruleForm.images" :src="ruleForm.images" class="avatar" />
           <i class="el-icon-plus avatar-uploader-icon" v-else></i>
         </el-upload>
-        <input type="hidden" v-model="ruleForm.imageid" />
+        <input type="hidden" v-model="ruleForm.imagesid" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" v-on:click="addAdvert('form')">确定</el-button>
@@ -82,7 +82,6 @@
 </template>
 
 <script>
-  import Service from '~plugins/axios'
   import Main from '~plugins/main'
 
   export default {
@@ -96,7 +95,7 @@
           target: '是',
           sort: '',
           images: '',
-          imageid: '',
+          imagesid: '',
           content: ''
         },
         rules: {
@@ -125,13 +124,13 @@
     methods: {
       getAdvert () {
         let self = this
-        Service.get('/api/advert/list').then(data => {
+        self.$http.get('/api/advert/list').then(data => {
           self.list = JSON.parse(data.request.response).data.sort(Main.compare('sort'))
         })
       },
       deleteAdvert (id, index) {
         let self = this
-        Service.post('/api/advert/delete', {
+        self.$http.post('/api/advert/delete', {
           id: id
         }).then(data => {
           self.list.splice(index, 1)
@@ -139,7 +138,7 @@
       },
       updateAdvert (id, index) {
         let self = this
-        Service.post('/api/advert/update', {
+        self.$http.post('/api/advert/update', {
           id: id,
           group: self.ruleForm.group,
           link: self.ruleForm.link,
@@ -153,7 +152,7 @@
       },
       addAdvert (formName) {
         let self = this
-        Service.post('/api/advert/add', {
+        self.$http.post('/api/advert/add', {
           group: self.ruleForm.group,
           link: self.ruleForm.link,
           sort: self.ruleForm.sort,

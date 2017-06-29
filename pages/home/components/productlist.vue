@@ -3,11 +3,10 @@
     <el-col :span="4" v-for="(item, index) in list" :key="item">
       <el-card>
         <img :src="item.coverurl" class="image">
-        <h1>{{item.title}}</h1>
-        <div class="detail">
-          <div class="price">{{item.price}}</div>
-          <div class="content" v-html="item.content"></div>
-        </div>
+        <el-row class="detail">
+          <el-col :span="12" class="title">{{item.title}}</el-col>
+          <el-col :span="12" class="price">￥{{item.price}}<span class="discount">({{item.discount}}%)</span></el-col>
+        </el-row>
       </el-card>
     </el-col>
   </el-row>
@@ -43,15 +42,28 @@
 <style rel="stylesheet/less" lang="less" scoped>
   .el-card {
     border-radius: 0;
+    font-size: 14px;
+    text-align: center;
     .el-card__body {
-      padding: 0;
+      padding: 20px 20px 10px 20px;
     }
     .image {
-      height: 100px;
-      display: block;
+      height: 134px;
     }
     .detail {
-      height: 60px;
+      line-height: 30px;
+      text-align: left;
+      border-top: 1px solid #f5f5f5;
+      margin-top: 20px;
+      padding-top: 10px;
+    }
+    .price {
+      text-align: right;
+      .discount {
+        margin: 0 2px;
+        color: orange;
+        font-size: 80%;
+      }
     }
   }
 
