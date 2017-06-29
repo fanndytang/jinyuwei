@@ -24,7 +24,7 @@
       <el-table-column
         label="操作">
         <template scope="scope">
-          <router-link :to="{ path: '/home/detail', query: { id: tableData3[scope.$index]._id }}">查看</router-link>
+          <router-link :to="{ path: '/home/detail', query: { id: tableData3[scope.$index]._id }}"><span style="margin-right: 5px;">查看</span></router-link>
           <el-button @click="handleClick(tableData3[scope.$index]._id, scope.$index)" type="text" size="small">删除</el-button>
           <el-button type="text" size="small">编辑</el-button>
         </template>
@@ -67,8 +67,11 @@
              v-quill:myQuillEditor="editorOption">
         </div>
       </el-form-item>
-      <el-form-item label="产品价格" prop="title">
-        <el-input v-model="ruleForm.price"></el-input>
+      <el-form-item label="产品价格" prop="price">
+        <el-input v-model="ruleForm.price" type="number" min="0"></el-input>
+      </el-form-item>
+      <el-form-item label="产品抵扣" prop="discount">
+        <el-input v-model="ruleForm.discount" type="number" min="0" max="100"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit('form')">确定</el-button>
@@ -79,8 +82,6 @@
 </template>
 
 <script>
-  import Service from '~plugins/axios'
-
   export default {
     data () {
       return {
@@ -120,26 +121,27 @@
     methods: {
       handleClick (id, index) {
         let self = this
-        Service.post('/api/product/delete', {id: id}).then(data => {
+        self.$http.post('/api/product/delete', {id: id}).then(data => {
           self.tableData3.splice(index, 1)
         })
       },
       getList () {
         let self = this
-        Service.get('/api/product/list').then(data => {
+        self.$http.get('/api/product/list').then(data => {
           self.tableData3 = JSON.parse(data.request.response).data
         })
       },
       onSubmit (formName) {
-        this.$refs[formName].validate((valid) => {
+        let self = this
+        self.$refs[formName].validate((valid) => {
           if (valid) {
-            Service.post('/api/product/add', {
-              title: this.ruleForm.title,
-              coverid: this.ruleForm.coverid,
-              thumbsid: this.ruleForm.thumbsid,
-              content: this.ruleForm.content,
-              price: this.ruleForm.price,
-              discount: this.ruleForm.discount
+            self.$http.post('/api/product/add', {
+              title: self.ruleForm.title,
+              coverid: self.ruleForm.coverid,
+              thumbsid: self.ruleForm.thumbsid,
+              content: self.ruleForm.content,
+              price: self.ruleForm.price,
+              discount: self.ruleForm.discount
             }).then(response => {
               console.log(response)
             })
@@ -190,7 +192,7 @@
   }
 </script>
 
-<style rel="stylesheet/less" lang="less" scoped>
+<style rel="stylesheet/less" lang="less">
   .ql-container .ql-editor {
     min-height: 20em;
     max-height: 25em;

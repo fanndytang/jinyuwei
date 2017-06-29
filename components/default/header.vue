@@ -1,6 +1,6 @@
 <template>
   <el-menu v-cloak :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-    <el-menu-item v-for="(item, index) in list" :key="index" :index="index">
+    <el-menu-item v-for="(item, index) in list" :key="index" v-bind:index="index">
       <nuxt-link :to="item.link">
         <i class="item.icon"></i>
         {{item.title}}

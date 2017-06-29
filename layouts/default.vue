@@ -3,10 +3,7 @@
     <el-col :span="24">
       <JYWheader></JYWheader>
     </el-col>
-    <el-col :span="4">
-      <JYWleft></JYWleft>
-    </el-col>
-    <el-col :span="20">
+    <el-col :span="24">
       <nuxt/>
     </el-col>
   </el-row>

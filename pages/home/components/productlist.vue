@@ -1,8 +1,8 @@
 <template>
-  <el-row :gutter="20">
-    <el-col :span="6" v-for="(item, index) in list" :key="item">
+  <el-row :gutter="20" class="box">
+    <el-col :span="4" v-for="(item, index) in list" :key="item">
       <el-card>
-        <img :src="item.src" class="image">
+        <img :src="item.coverurl" class="image">
         <h1>{{item.title}}</h1>
         <div class="detail">
           <div class="price">{{item.price}}</div>
@@ -14,7 +14,6 @@
 </template>
 
 <script>
-  import Service from '~plugins/axios'
   export default {
     props: {
       filters: {
@@ -33,7 +32,7 @@
     methods: {
       getList () {
         let self = this
-        Service.get('/api/product/list').then(data => {
+        self.$http.get('/api/product/list').then(data => {
           self.list = JSON.parse(data.request.response).data
         })
       }
@@ -41,14 +40,14 @@
   }
 </script>
 
-<style rel="stylesheet/less" lang="less">
+<style rel="stylesheet/less" lang="less" scoped>
   .el-card {
     border-radius: 0;
     .el-card__body {
       padding: 0;
     }
     .image {
-      height: 230px;
+      height: 100px;
       display: block;
     }
     .detail {

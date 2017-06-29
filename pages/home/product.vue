@@ -1,9 +1,9 @@
 <template>
-  <my-list :filters="filters"></my-list>
+  <myList :filters="filters"></myList>
 </template>
 
 <script>
-  import List from '~components/default/productlist.vue'
+  import myList from '~pages/home/components/productlist.vue'
   export default {
     data () {
       return {
@@ -11,7 +11,7 @@
       }
     },
     components: {
-      'my-list': List
+      myList
     }
   }
 </script>
