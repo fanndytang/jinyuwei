@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import myList from '~pages/home/components/productlist.vue'
+  import myList from '~components/default/Product/list.vue'
   export default {
     data () {
       return {

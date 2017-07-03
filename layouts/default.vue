@@ -1,23 +1,34 @@
 <template>
-  <el-row>
-    <el-col :span="24">
-      <JYWheader></JYWheader>
-    </el-col>
-    <el-col :span="24">
-      <nuxt/>
-    </el-col>
-  </el-row>
+  <div>
+    <pageTop></pageTop>
+    <pageSearch></pageSearch>
+    <div class="container">
+      <mainNav></mainNav>
+      <div class="clearfix"></div>
+      <el-row>
+        <el-col :span="6">
+          <mainLeft></mainLeft>
+        </el-col>
+        <el-col :span="18">
+          <nuxt/>
+        </el-col>
+      </el-row>
+    </div>
+  </div>
 </template>
 
 <script>
-  import JYWheader from '~/components/default/header.vue'
-  import JYWleft from '~/components/default/aside.vue'
+  import pageTop from '~components/default/pageTop.vue'
+  import pageSearch from '~components/default/pageSearch.vue'
+  import mainNav from '~components/default/mainNav.vue'
+  import mainLeft from '~components/default/mainLeft.vue'
 
   export default {
-    //  middleware: 'check_index',
     components: {
-      JYWheader,
-      JYWleft
+      pageTop,
+      pageSearch,
+      mainNav,
+      mainLeft
     }
   }
 </script>
@@ -26,6 +37,16 @@
   body {
     margin: 0;
     padding: 0;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: block;
+  }
+  @media (max-width: 1025px) {
+    .container {
+      max-width: 980px;
+    }
   }
   [v-cloak] {
     display: none;
@@ -39,4 +60,3 @@
     clear: both
   }
 </style>
-

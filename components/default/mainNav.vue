@@ -1,14 +1,15 @@
 <template>
-  <el-menu v-cloak :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
-    <el-menu-item v-for="(item, index) in list" :key="index" v-bind:index="index">
-      <nuxt-link :to="item.link">
-        <i class="item.icon"></i>
-        {{item.title}}
-      </nuxt-link>
-    </el-menu-item>
-  </el-menu>
+  <nav class="nav">
+    <el-menu v-cloak :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect">
+      <el-menu-item v-for="(item, index) in list" :key="index" v-bind:index="index">
+        <nuxt-link :to="item.link">
+          <i class="item.icon"></i>
+          {{item.title}}
+        </nuxt-link>
+      </el-menu-item>
+    </el-menu>
+  </nav>
 </template>
-
 <script>
   import Service from '~plugins/axios'
   import Main from '~plugins/main'
@@ -38,8 +39,7 @@
     }
   }
 </script>
-
-<style rel="stylesheet/less" lang="less">
+<style rel="stylesheet/less" lang="less" scoped>
   .el-menu-item a {
     display: block;
     color: #666;
