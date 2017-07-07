@@ -1,2 +1,0 @@
-import Vue from 'vue'
-Vue.use(require('vue-image-crop-upload'))
