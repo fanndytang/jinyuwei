@@ -1,17 +1,11 @@
 <template>
  <div>
-   <nav>
-     oeg
-   </nav>
-   <banner></banner>
-  <!-- <h5>推荐列表</h5>-->
-   <myList :filters="filters"></myList>
+   <Page :type="1"></Page>
  </div>
 </template>
 
 <script>
-  import myList from '../components/Product/list.vue'
-  import banner from '../pages/components/index_banner.vue'
+  import Page from 'src/pages/common.vue';
 
   export default {
     data () {
@@ -20,8 +14,7 @@
       }
     },
     components: {
-      myList,
-      banner
+        Page
     }
   }
 </script>

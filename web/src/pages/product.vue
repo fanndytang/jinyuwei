@@ -1,34 +1,20 @@
 <template>
-  <myList :filters="filters"></myList>
+  <div>
+    <Page :type="4"></Page>
+  </div>
 </template>
 
 <script>
-  import myList from '../components/Product/list.vue'
-  export default {
-    data () {
-      return {
-        filters: {}
-      }
-    },
-    components: {
-      myList
+    import Page from 'src/pages/common.vue';
+
+    export default {
+        data () {
+            return {
+                filters: {}
+            }
+        },
+        components: {
+            Page
+        }
     }
-  }
 </script>
-
-<style rel="stylesheet/less" lang="less" scoped>
-  .el-card {
-    border-radius: 0;
-    .el-card__body {
-      padding: 0;
-    }
-    .image {
-      height: 230px;
-      display: block;
-    }
-    .detail {
-      height: 60px;
-    }
-  }
-
-</style>

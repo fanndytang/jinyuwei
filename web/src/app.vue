@@ -1,38 +1,16 @@
 <template>
   <div>
-    <pageTop></pageTop>
-    <pageSearch></pageSearch>
-    <div class="container">
-      <mainNav></mainNav>
-      <div class="clearfix"></div>
-      <el-row>
-        <el-col :span="6">
-          <mainLeft></mainLeft>
-        </el-col>
-        <el-col :span="18">
-          <Index></Index>
-        </el-col>
-      </el-row>
-    </div>
+    <Page :type="1"></Page>
   </div>
 </template>
 
 <script>
-    import pageTop from '~./components/pageTop.vue'
-    import pageSearch from './components/pageSearch.vue'
-    import mainNav from './components/mainNav.vue'
-    import mainLeft from './components/mainLeft.vue'
-    import Index from './pages/index.vue'
-
+    import Page from './pages/common.vue';
     export default {
         components: {
-            pageTop,
-            pageSearch,
-            mainNav,
-            mainLeft,
-            Index
+            Page
         }
-    }
+    };
 </script>
 
 <style  rel="stylesheet/less" lang="less">

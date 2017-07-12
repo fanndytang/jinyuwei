@@ -18,38 +18,38 @@
         default: {}
       }
     },
-    data () {
+    data() {
       return {
         list: []
-      }
+      };
     },
-    mounted () {
-      this.getList()
+    mounted() {
+      this.getList();
     },
     methods: {
-      getList () {
-        let self = this
+      getList() {
+        let self = this;
         self.$http.get('/api/product/list').then(data => {
-          self.list = JSON.parse(data.request.response).data
-        })
+            self.list = JSON.parse(data.request.response).data;
+        });
       }
     }
-  }
+  };
 </script>
 
 <style rel="stylesheet/less" lang="less">
   .el-card__body {
     overflow: hidden;
-    border: 1px solid #ccc;
+    border: 1px solid #eee;
     padding: 20px 20px 10px 20px;
   }
 </style>
 <style rel="stylesheet/less" lang="less" scoped>
   .box {
-    padding: 20px 0;
     display: flex;
     align-items: stretch;
     flex-wrap: wrap;
+    margin-top: -10px;
   }
   .el-card {
     background: transparent;

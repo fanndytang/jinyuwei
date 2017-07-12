@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <Page :type="3"></Page>
-  </div>
+    <div>
+        <myList :filters="filters"></myList>
+    </div>
 </template>
 
 <script>
-    import Page from 'src/pages/common.vue';
+    import myList from './common/Product/list.vue';
 
     export default {
         data () {
@@ -14,7 +14,7 @@
             }
         },
         components: {
-            Page
+            myList
         }
     }
 </script>
