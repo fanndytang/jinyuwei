@@ -23,6 +23,8 @@
                 let self = this;
                 self.$http.get('/api/advert/list?group=index').then(data => {
                     self.bannerList = JSON.parse(data.request.response).data;
+                }).catch(error => {
+                    console.log(error)
                 });
             }
         }

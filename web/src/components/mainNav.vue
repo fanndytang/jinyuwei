@@ -1,7 +1,7 @@
 <template>
   <nav class="nav">
     <el-menu v-cloak :default-active="activeIndex" class="el-menu-demo container" mode="horizontal" @select="handleSelect">
-      <el-menu-item v-for="(item, index) in list" :key="index" v-bind:index="index">
+      <el-menu-item v-for="(item, index) in list" :key="index" :index="index.toString()">
         <a :href="item.link">
           <i class="item.icon"></i>
           {{item.title}}
@@ -36,7 +36,7 @@
   }
 </script>
 <style rel="stylesheet/less" lang="less" scoped>
-  @import "../../assets/css/components/varible";
+  @import "../assets/css/components/varible";
   .nav {
     height: 60px;
     background: @main-color;

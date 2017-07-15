@@ -1,14 +1,44 @@
 <template>
   <div>
-    <Page :type="1"></Page>
+    <pageTop></pageTop>
+    <el-row class="container">
+      <el-col :span="8" :offset="16">
+        <pageSearch></pageSearch>
+      </el-col>
+    </el-row>
+    <mainNav></mainNav>
+    <mainBanner></mainBanner>
+    <el-row class="container">
+      <el-col :span="6">
+        <mainLeft></mainLeft>
+      </el-col>
+      <el-col :span="18">
+        <router-view></router-view>
+      </el-col>
+    </el-row>
+    <mainFooter></mainFooter>
+    <scrollTop></scrollTop>
   </div>
 </template>
 
 <script>
-    import Page from './pages/common.vue';
+    import pageTop from './components/pageTop.vue';
+    import pageSearch from './components/pageSearch.vue';
+    import mainNav from './components/mainNav.vue';
+    import mainBanner from './components/mainBanner.vue';
+    import mainLeft from './components/mainLeft.vue';
+    import mainFooter from './components/pageFooter.vue';
+    import scrollTop from './components/scrollTop.vue';
+
     export default {
         components: {
-            Page
+            pageTop,
+            pageSearch,
+            mainNav,
+            mainLeft,
+            mainBanner,
+            scrollTop,
+            mainFooter
         }
     };
 </script>
@@ -17,6 +47,7 @@
   body {
     margin: 0;
     padding: 0;
+    min-width: 998px;
   }
   .container {
     max-width: 1200px;

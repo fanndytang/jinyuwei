@@ -1,12 +1,9 @@
 <template>
-  <div>
-    <Page :type="4"></Page>
-  </div>
+  <myList :filters="filters"></myList>
 </template>
 
 <script>
-    import Page from 'src/pages/common.vue';
-
+    import myList from './common/Product/list.vue';
     export default {
         data () {
             return {
@@ -14,7 +11,24 @@
             }
         },
         components: {
-            Page
+            myList
         }
     }
 </script>
+
+<style rel="stylesheet/less" lang="less" scoped>
+  .el-card {
+    border-radius: 0;
+    .el-card__body {
+      padding: 0;
+    }
+    .image {
+      height: 230px;
+      display: block;
+    }
+    .detail {
+      height: 60px;
+    }
+  }
+
+</style>

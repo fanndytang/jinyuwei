@@ -19,7 +19,7 @@
   }
 </script>
 <style rel="stylesheet/less" lang="less">
-  @import "../../assets/css/components/varible";
+  @import "../assets/css/components/varible";
   .main-aside {
     .item {
       border: 1px solid #eee;

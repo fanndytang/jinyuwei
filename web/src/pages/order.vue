@@ -1,20 +1,10 @@
 <template>
   <div>
-    <Page :type="3"></Page>
+    商品信息。。。。。
+    qq, email, phone, weixin
   </div>
 </template>
 
 <script>
-    import Page from 'src/pages/common.vue';
-
-    export default {
-        data () {
-            return {
-                filters: {}
-            }
-        },
-        components: {
-            Page
-        }
-    }
+    export default {}
 </script>
