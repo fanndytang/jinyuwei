@@ -1,27 +1,27 @@
 <template>
   <el-row>
     <el-col :span="24">
-      <JYWheader></JYWheader>
+      <MainHeader></MainHeader>
     </el-col>
     <el-col :span="4">
-      <JYWleft></JYWleft>
+      <MainMenu></MainMenu>
     </el-col>
     <el-col :span="20" style="padding: 0 30px;">
-      <index></index>
+      <router-view></router-view>
     </el-col>
   </el-row>
 </template>
 
 <script>
-    import JYWheader from './components/header.vue'
-    import JYWleft from './components/aside.vue'
-    import Index from './pages/index.vue'
+    import MainHeader from './components/mainHeader.vue'
+    import MainMenu from './components/mainLeft.vue'
+   // import Index from './pages/index.vue'
 
     export default {
         components: {
-            JYWheader,
-            JYWleft,
-            Index
+            MainHeader,
+            MainMenu
+         //   Index
         }
     }
 </script>

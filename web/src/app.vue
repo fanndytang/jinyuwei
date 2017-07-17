@@ -7,12 +7,12 @@
       </el-col>
     </el-row>
     <mainNav></mainNav>
-    <mainBanner></mainBanner>
+    <mainBanner v-if="hasMainBanner"></mainBanner>
     <el-row class="container">
-      <el-col :span="6">
+      <el-col :span="6" v-if="hasLeft">
         <mainLeft></mainLeft>
       </el-col>
-      <el-col :span="18">
+      <el-col :span="hasLeft ? 18 : 24">
         <router-view></router-view>
       </el-col>
     </el-row>
@@ -31,6 +31,23 @@
     import scrollTop from './components/scrollTop.vue';
 
     export default {
+        computed: {
+            hasLeft: function() {
+                let arr = this.$jyw.noLeftMenu || [];
+                let flag = true;
+                if(!!arr.length) {
+                    for(let key in arr) {
+                        if(arr[key] === this.$route.name) {
+                            flag = false;
+                        }
+                    }
+                }
+                return flag;
+            },
+            hasMainBanner: function() {
+                return this.$route.path === '/';
+            }
+        },
         components: {
             pageTop,
             pageSearch,

@@ -30,6 +30,8 @@
           let list = JSON.parse(data.request.response).data;
           list = list.sort(this.MyMain.compare('sort'));
           this.list = list;
+        }).catch(error => {
+
         });
       }
     }

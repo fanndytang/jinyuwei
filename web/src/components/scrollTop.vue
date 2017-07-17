@@ -1,6 +1,6 @@
 <template>
     <div class="page-component-up" @click="scrollTop()">
-        <i class="el-icon-caret-top"></i>
+        <i class="el-icon-arrow-up"></i>
     </div>
 </template>
 

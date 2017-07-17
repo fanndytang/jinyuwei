@@ -23,7 +23,6 @@
 </template>
 
 <script>
-  import Service from '../plugins/axios'
   import Main from '../plugins/main'
 
   export default {
@@ -38,7 +37,7 @@
     methods: {
       getMainNav () {
         let self = this
-        Service.get('/api/nav/list?type=4').then(data => {
+        self.$http.get('/api/nav/list?type=4').then(data => {
           let list = JSON.parse(data.request.response).data
           list = list.sort(Main.compare('sort'))
           self.list = list

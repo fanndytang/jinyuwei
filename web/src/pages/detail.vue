@@ -23,10 +23,10 @@
             </ul>
           </el-form-item>
           <el-form-item label="数量">
-            <el-input v-model="ruleForm.num"></el-input>
+            <el-input-number v-model="ruleForm.num"></el-input-number>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary">加入清单</el-button>
+          <!--  <el-button type="primary">加入清单</el-button>-->
           </el-form-item>
         </el-form>
       </div>

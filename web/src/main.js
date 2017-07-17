@@ -10,6 +10,13 @@ Vue.use(ElementUI);
 Vue.prototype.$http = Axios;
 Vue.prototype.MyMain = Main;
 
+
+Vue.prototype.$jyw = {
+    noLeftMenu: [   //  不需要左边菜单的页面
+        'cart'
+    ]
+};
+
 new Vue({ // eslint-disable-line
     el: '#app',
     router,

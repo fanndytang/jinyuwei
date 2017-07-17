@@ -1,7 +1,7 @@
 <template>
   <div class="box clearfix">
     <el-card class="item" v-for="(item, index) in list" :key="item">
-      <router-link :to="{path: '/detail', params: {id: item.id}}">
+      <router-link :to="{name: 'detail', params: {id: item._id}}">
         <div class="image"><img :src="item.coverurl"></div>
         <el-row class="detail">
           <el-col :span="12" class="title">{{item.title}}</el-col>

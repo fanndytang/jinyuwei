@@ -13,7 +13,6 @@
         }
       }
     },
-    layout: 'admin',
     methods: {
       onSubmit () {
         console.log('submit!')

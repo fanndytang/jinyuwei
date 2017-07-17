@@ -3,6 +3,9 @@
     <div class="item">menu</div>
     <div class="item">menu</div>
     <div class="item">menu</div>
+    <div class="item">
+      <router-link :to="{path: '/cart'}">我的清单</router-link>
+    </div>
   </div>
 </template>
 
