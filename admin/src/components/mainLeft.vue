@@ -2,20 +2,20 @@
   <div>
     <el-menu v-cloak  style="height: 800px;" default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
       <div v-for="(item, index) in list" :key="index">
-        <el-submenu v-if="!!item.list && !!item.list.length" v-bind:index="index+1">
+        <el-submenu v-if="!!item.list && !!item.list.length" v-bind:index="(index+1).toString()">
           <template slot="title">{{item.icon}}{{item.title}}</template>
-          <el-menu-item v-for="(el, elindex) in item.list" :key="elindex" v-bind:index="index+1 + '-' + elindex+1">
-            <nuxt-link :to="el.link">
+          <el-menu-item v-for="(el, elindex) in item.list" :key="elindex" v-bind:index="(index+1 + '-' + elindex+1).toString()">
+            <router-link :to="el.link">
               {{el.icon}}{{el.title}}
-            </nuxt-link>
+            </router-link>
           </el-menu-item>
         </el-submenu>
 
-        <el-menu-item v-if="!item.list || !!item.list && !item.list.length" v-bind:index="index+1">
-          <nuxt-link :to="item.link">
+        <el-menu-item v-if="!item.list || !!item.list && !item.list.length" v-bind:index="(index+1).toString()">
+          <router-link :to="item.link">
             <i class="item.icon"></i>
             {{item.title}}
-          </nuxt-link>
+          </router-link>
         </el-menu-item>
       </div>
     </el-menu>
@@ -23,7 +23,6 @@
 </template>
 
 <script>
-  import Main from '../plugins/main'
 
   export default {
     data () {
@@ -36,12 +35,12 @@
     },
     methods: {
       getMainNav () {
-        let self = this
-        self.$http.get('/api/nav/list?type=4').then(data => {
-          let list = JSON.parse(data.request.response).data
-          list = list.sort(Main.compare('sort'))
-          self.list = list
-        })
+          let that = this
+          that.$http.get('/api/nav/list?type=4').then(data => {
+              let list = JSON.parse(data.request.response).data
+              list = list.sort(that.MyMain.compare('sort'));
+              that.list = list
+          });
       },
       handleOpen (key, keyPath) {
         console.log(key, keyPath)

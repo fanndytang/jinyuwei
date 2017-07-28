@@ -9,7 +9,6 @@ export default class extends Base {
         let result = {};
         if(this.http.method != 'OPTIONS') {
             let model = this.model('navlist');
-            console.log(this.http._post.type)
             let sort = await model.where({
                 sort: this.http._post.sort,
                 type: parseInt(this.http._post.type)
@@ -56,7 +55,7 @@ export default class extends Base {
         this.http.header('Content-Type','text/html; charset=utf-8');
         this.http.header("Access-Control-Allow-Headers", 'Origin, X-Requested-With, Content-Type, Accept');
         this.http.header('Access-Control-Allow-Methods', 'GET, POST, PUT');
-        this.success(1);
+        this.success({info: '删除成功'});
     }
 
     //  获取
@@ -64,7 +63,7 @@ export default class extends Base {
         let result = [];
         if(this.http.method != 'OPTIONS') {
             let model = this.model('navlist');
-            let type = this.http._get.type.toString();
+            let type = parseInt(this.http._get.type);
             result = await model.where({type: type}).select();
         }
         this.http.header('Access-Control-Allow-Origin','*');

@@ -1,37 +1,27 @@
 <template>
   <div>
-    <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane label="前端顶部导航" name="前端顶部导航">
-        <nav-pane type="1"></nav-pane>
-      </el-tab-pane>
-      <el-tab-pane label="前端主导航" name="前端主导航">
-        <nav-pane type="2"></nav-pane>
-      </el-tab-pane>
-      <el-tab-pane label="后端顶部导航" name="后端顶部导航">
-        <nav-pane type="3"></nav-pane>
-      </el-tab-pane>
-      <el-tab-pane label="后端主导航" name="后端主导航">
-        <nav-pane type="4"></nav-pane>
-      </el-tab-pane>
-    </el-tabs>
+    <navList></navList>
+    <navAdd @add="addNav"></navAdd>
   </div>
 </template>
 <script>
-  import navPane from '../components/nav.vue'
+  import navList from 'src/pages/nav/list.vue'
+  import navAdd from 'src/pages/nav/add.vue'
   export default {
-    data () {
-      return {
-        activeName: '后端主导航'
+      data() {
+          return {
+            //  item: {}
+          }
+      },
+      methods:{
+          addNav(item){
+              this.$children[0].list.push(item);
+            // console.log( this.$children)
+          }
+      },
+      components: {
+          navList,
+          navAdd
       }
-    },
-    layout: 'admin',
-    methods: {
-      handleClick (tab, event) {
-        console.log(tab, event)
-      }
-    },
-    components: {
-      'nav-pane': navPane
-    }
   }
 </script>

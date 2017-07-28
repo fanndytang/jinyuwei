@@ -8,7 +8,7 @@
     </el-row>
     <mainNav></mainNav>
     <mainBanner v-if="hasMainBanner"></mainBanner>
-    <el-row class="container">
+    <el-row class="container" style="clear:both;">
       <el-col :span="6" v-if="hasLeft">
         <mainLeft></mainLeft>
       </el-col>
