@@ -29,7 +29,7 @@
         methods: {
             getNav () {
                 let that = this;
-                that.$http.get('/api/nav/list?page=1&rows=10&type=' +that.type).then((data) => {
+                that.$http.get('/api/nav/list?type=' +that.type).then((data) => {
                     that.list = data.data.data.sort(that.MyMain.compare('sort'));
                 }).catch(error => {});
             },

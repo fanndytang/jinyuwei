@@ -11,7 +11,9 @@
         <p class="small">{{list.summary || ''}}</p>
         <div class="price">
           <div class="underline">原价：<span class="num">{{!!list.price ? '￥'+list.price : '' }}</span></div>
-          <div>{{!!list.price ? '￥'+list.price*list.discount/100 : ''}}</div>
+          <div>
+            {{!!list.price ? '￥'+list.price*(list.discount == 0 ? 1 : list.discount/100) : ''}}
+          </div>
         </div>
         <el-form label-width="50px" ref="form" :model="ruleForm" >
           <el-form-item label="分类" class="category">
@@ -53,7 +55,6 @@
                 let id = that.$route.params.id;
                 that.$http.get('/api/product/detail?id=' + id).then(res => {
                     let result = res.data.data;
-                  //  console.log(result)
                     if(result.thumbs) {
                         that.getImgs(result.thumbs, function(data) {
                             that.list.thumbs = data.data.data;
@@ -73,7 +74,6 @@
                 });
             },
             getImgs(ids, callback) {
-                console.log(ids)
                 if(typeof ids !== 'string') {
                     ids = ids.join(',');
                 }

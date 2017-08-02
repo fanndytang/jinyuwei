@@ -30,9 +30,11 @@
     },
     methods: {
       getList() {
-        let self = this;
-        self.$http.get('/api/product/list').then(data => {
-            self.list = JSON.parse(data.request.response).data;
+        let that = this;
+          that.$http.get('/api/product/list').then(data => {
+              if(!!data.data.data.data.length) {
+                  that.list = data.data.data.data;
+              }
         });
       }
     }

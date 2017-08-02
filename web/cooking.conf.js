@@ -1,12 +1,18 @@
 let path = require('path');
 let cooking = require('cooking');
+process.noDeprecation = true;
 
 cooking.set({
     entry: {
         app: ['babel-polyfill', './src/main.js']
     },
     dist: './dist',
-    template: './index.tpl',
+    template: [
+        {
+            template: './index.tpl',
+            filename: 'index_index.html'
+        }
+    ],
     devServer: {
         port: 8070,
         publicPath: '/',
@@ -26,7 +32,7 @@ cooking.set({
     postcss: [
         // require('...')
     ],
-    publicPath: '/dist/',
+    publicPath: '/static/web/dist/',
     assetsPath: 'static',
     urlLoaderLimit: 10000,
     static: true,

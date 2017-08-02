@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-menu v-cloak  style="height: 800px;" default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+    <el-menu v-cloak style="height: 100%;" default-active="1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
       <div v-for="(item, index) in list" :key="index">
         <el-submenu v-if="!!item.list && !!item.list.length" v-bind:index="(index+1).toString()">
           <template slot="title">{{item.icon}}{{item.title}}</template>
@@ -37,9 +37,7 @@
       getMainNav () {
           let that = this
           that.$http.get('/api/nav/list?type=4').then(data => {
-              let list = JSON.parse(data.request.response).data
-              list = list.sort(that.MyMain.compare('sort'));
-              that.list = list
+              that.list = data.data.data.sort(that.MyMain.compare('sort'));
           });
       },
       handleOpen (key, keyPath) {
@@ -57,5 +55,8 @@
     display: block;
     color: #666;
     text-decoration: none;
+  }
+  .el-menu-item.is-active {
+    background: #fff;
   }
 </style>

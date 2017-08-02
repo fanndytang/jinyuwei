@@ -6,10 +6,19 @@ cooking.set({
     app: ['babel-polyfill', './src/main.js']
   },
   dist: './dist',
-  template: './index.tpl',
+  template: [
+      {
+        template: './index.tpl',
+          filename: 'index_index.html'
+      }
+  ],
   devServer: {
     port: 8050,
-    publicPath: '/'
+    publicPath: '/',
+      proxy: {
+        '/api/*': 'http://127.0.0.1:8360',
+          changeOrigin: true
+      }
   },
   // production
   clean: true,
@@ -20,7 +29,7 @@ cooking.set({
   postcss: [
     // require('...')
   ],
-  publicPath: '/dist/',
+  publicPath: '/static/manager/dist/',
   assetsPath: 'static',
   urlLoaderLimit: 10000,
   static: true,

@@ -1,5 +1,5 @@
 <template>
-    <el-form v-cloak :rules="rules" ref="form" :model="form" label-width="80px" style="width: 80%">
+    <el-form v-cloak :rules="rules" ref="form" :model="form" label-width="80px" style="width: 80%;">
         <el-form-item label="产品名称" prop="title"><el-input v-model="form.title"></el-input></el-form-item>
         <el-form-item label="简介" prop="summary"><el-input v-model="form.summary"></el-input></el-form-item>
         <el-form-item label="封面图" prop="cover">
@@ -16,10 +16,10 @@
         </el-form-item>
         <el-form-item label="详情图" prop="thumbs">
             <el-upload class="upload-demo" action="/api/upload/image"
-                    :on-success="handleSuccess"
-                    :on-remove="handleRemove"
-                    :file-list="upload.thumbs"
-                    list-type="picture">
+                       :on-success="handleSuccess"
+                       :on-remove="handleRemove"
+                       :file-list="upload.thumbs"
+                       list-type="picture">
                 <el-button size="small" type="primary">点击上传</el-button>
                 <div slot="tip" class="el-upload__tip">只能上传jpg/png/gif文件，且不超过500kb</div>
             </el-upload>
@@ -213,5 +213,10 @@
         width: 178px;
         height: 178px;
         display: block;
+    }
+
+    .wrapper {
+        height: 90%;
+        width: 100%;
     }
 </style>
